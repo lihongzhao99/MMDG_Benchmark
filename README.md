@@ -19,7 +19,7 @@
     <sup>1</sup>ETH Zurich, <sup>2</sup>Zhengzhou University, <sup>3</sup>MBZUAI, <sup>4</sup>EPFL
 </div>
 
-
+</div>
 
 # Multimodal Domain Generalization Benchmark
 
