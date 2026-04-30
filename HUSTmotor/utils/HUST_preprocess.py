@@ -217,10 +217,13 @@ def verify_mat_file(mat_path):
 
 
 if __name__ == "__main__":
+    project_root = Path(__file__).resolve().parents[1]
+    data_dir = project_root / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
 
-    txt_folder = "./data"  # txt文件所在文件夹
-    vib_output = "./Motor_Vib.mat"  # 振动数据输出文件
-    aud_output = "./Motor_Aud.mat"  # 声学数据输出文件
+    txt_folder = str(data_dir)  # txt文件所在文件夹
+    vib_output = str(data_dir / "Motor_Vib.mat")  # 振动数据输出文件
+    aud_output = str(data_dir / "Motor_Aud.mat")  # 声学数据输出文件
     
     # - 振动样本长度: 1024
     # - 声学样本长度: 1024  
@@ -256,7 +259,7 @@ if __name__ == "__main__":
     print("✅ 转换成功完成!")
     print("=" * 60)
     print("\n📝 下一步:")
-    print("  1. 将生成的MAT文件复制到你的数据目录")
-    print("  2. 在训练代码中更新路径:")
+    print("  1. 确认 TXT 文件已经放在 HUSTmotor/data/ 下")
+    print("  2. 训练脚本会默认读取以下文件:")
     print(f"     root_vib = '{vib_output}'")
     print(f"     root_asc = '{aud_output}'")

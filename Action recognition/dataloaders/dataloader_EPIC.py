@@ -8,6 +8,13 @@ import os
 import imageio.v3 as iio
 
 
+_EPIC_SPLIT_FILES = tuple(
+    f"{domain}_{split}.pkl"
+    for domain in ("D1", "D2", "D3")
+    for split in ("train", "test")
+)
+
+
 def _first_existing_dir(candidates):
     for candidate in candidates:
         if os.path.isdir(candidate):
@@ -15,25 +22,47 @@ def _first_existing_dir(candidates):
     return candidates[0]
 
 
+def _looks_like_epic_splits_root(path):
+    normalized_path = os.path.normpath(path)
+    if os.path.basename(normalized_path) == 'MM-SADA_Domain_Adaptation_Splits':
+        return True
+    return any(
+        os.path.exists(os.path.join(normalized_path, split_file))
+        for split_file in _EPIC_SPLIT_FILES
+    )
+
+
 def _epic_splits_root(base_path):
     normalized_path = os.path.normpath(base_path)
-    if os.path.basename(normalized_path) == 'EPIC-mp4':
-        return os.path.dirname(normalized_path)
-    if os.path.basename(normalized_path) == 'MM-SADA_Domain_Adaptation_Splits':
+    if _looks_like_epic_splits_root(normalized_path):
         return normalized_path
     return os.path.join(normalized_path, 'MM-SADA_Domain_Adaptation_Splits')
 
 
-def _epic_mp4_dir(base_path, modality, split, domain):
-    root = os.path.join(_epic_splits_root(base_path), 'EPIC-mp4')
+def _epic_modality_split_dir(base_path, modality, split):
+    split_root = _epic_splits_root(base_path)
+
     if modality == 'rgb':
-        candidates = [
-            os.path.join(root, 'video', split, domain),
-            os.path.join(root, 'rgb', split, domain),
-        ]
+        candidates = [os.path.join(split_root, 'video', split)]
+    elif modality == 'flow':
+        candidates = [os.path.join(split_root, 'flow', split)]
+    elif modality == 'audio':
+        candidates = [os.path.join(split_root, 'audio', split)]
     else:
-        candidates = [os.path.join(root, modality, split, domain)]
+        candidates = [os.path.join(split_root, modality, split)]
+
     return _first_existing_dir(candidates)
+
+
+def _epic_mp4_dir(base_path, modality, split, domain):
+    return os.path.join(_epic_modality_split_dir(base_path, modality, split), domain)
+
+
+def _epic_audio_path(base_path, split, sample_path):
+    return os.path.join(
+        _epic_modality_split_dir(base_path, 'audio', split),
+        sample_path + '.wav'
+    )
 
 
 def _epic_clip_name(path, start, stop, label, suffix=''):
@@ -166,9 +195,8 @@ class EPICDOMAIN(torch.utils.data.Dataset):
             flow, frame_inds_flow = _apply_pipeline(self.pipeline_flow, flow)
 
         if self.use_audio:
-            audio_path = os.path.join(
-                _epic_splits_root(self.base_path), 'rgb', self.split,
-                self.samples[index][0] + '.wav'
+            audio_path = _epic_audio_path(
+                self.base_path, self.split, self.samples[index][0]
             )
             samples, samplerate = sf.read(audio_path)
 

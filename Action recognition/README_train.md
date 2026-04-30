@@ -6,6 +6,10 @@ Run commands from this folder:
 cd "Action recognition"
 ```
 
+Dataset downloads for both EPIC-Kitchens and HAC:
+
+[Hugging Face](https://huggingface.co/datasets/hdong51/Human-Animal-Cartoon/tree/main)
+
 ## 📌 Methods
 
 ```text
@@ -34,6 +38,11 @@ python train_ERM.py \
 
 Use `--dataset hac --num_class 7` for HAC. Modalities are enabled with
 `--use_video`, `--use_audio`, and `--use_flow`.
+
+For EPIC, `--datapath` can point to either `DATA_ROOT/` or
+`DATA_ROOT/MM-SADA_Domain_Adaptation_Splits/`. The EPIC layout is:
+`video/{train,test}/D*/`, `flow/{train,test}/D*/`, and
+`audio/{train,test}/D*/`.
 
 ## ⚙️ Batch Runner
 

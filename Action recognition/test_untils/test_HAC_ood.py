@@ -199,14 +199,19 @@ def normalize_hac_datapath(datapath: str) -> str:
 
 
 def normalize_epic_datapath(datapath: str) -> str:
-    """Normalize EPIC path to MM-SADA split root expected by EPICDOMAIN."""
+    """Normalize EPIC path to the MM-SADA split root expected by EPICDOMAIN."""
     p = Path(datapath).expanduser().resolve()
+    split_files = [
+        f"{domain}_{split}.pkl"
+        for domain in ("D1", "D2", "D3")
+        for split in ("train", "test")
+    ]
 
-    if p.name == "rgb" and p.parent.name == "EPIC-mp4":
-        return str(p.parent.parent) + os.sep
-    if p.name == "EPIC-mp4":
-        return str(p.parent) + os.sep
-    return str(p) + os.sep
+    if p.name == "MM-SADA_Domain_Adaptation_Splits":
+        return str(p) + os.sep
+    if any((p / split_file).exists() for split_file in split_files):
+        return str(p) + os.sep
+    return str(p / "MM-SADA_Domain_Adaptation_Splits") + os.sep
 
 
 if __name__ == "__main__":

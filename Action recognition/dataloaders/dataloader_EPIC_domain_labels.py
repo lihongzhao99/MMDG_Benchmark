@@ -10,6 +10,7 @@ import imageio.v3 as iio
 
 from .dataloader_EPIC import (
     _epic_clip_name,
+    _epic_audio_path,
     _epic_mp4_dir,
     _epic_splits_root,
     _apply_pipeline,
@@ -131,9 +132,8 @@ class EPICDOMAIN(torch.utils.data.Dataset):
 
 
         if self.use_audio:
-            audio_path = os.path.join(
-                _epic_splits_root(self.base_path), 'rgb', self.split,
-                self.samples[index][0] + '.wav'
+            audio_path = _epic_audio_path(
+                self.base_path, self.split, self.samples[index][0]
             )
             samples, samplerate = sf.read(audio_path)
 

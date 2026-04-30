@@ -138,3 +138,4 @@ The last summary line starts with `METRIC_OOD` for easy log parsing.
 - `test_HAC_misd.py` and `test_HAC_ood.py` normalize user-provided HAC paths
   before loading data.
 - `test_HAC_ood.py` also requires an EPIC path through `--datapath_epic`.
+  It accepts either `DATA_ROOT/` or `DATA_ROOT/MM-SADA_Domain_Adaptation_Splits/`.

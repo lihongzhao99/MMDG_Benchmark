@@ -21,7 +21,7 @@
 
 </div>
 
-# Multimodal Domain Generalization Benchmark
+# 🌍 Multimodal Domain Generalization Benchmark
 
 This repository contains training code for multimodal domain generalization
 experiments across three tasks:
@@ -34,7 +34,7 @@ The implemented methods are ERM, RNA-Net, SimMMDG, MOOSA, CMRF, NEL, JAT,
 MBCD, and GMP. Each task folder also provides a `run_all_cross_domain.sh`
 script that runs a selected method over the benchmark cross-domain settings.
 
-## Repository Layout
+## 🗂️ Repository Layout
 
 | Path | Purpose |
 | --- | --- |
@@ -43,7 +43,7 @@ script that runs a selected method over the benchmark cross-domain settings.
 | `MMSA/` | Multimodal sentiment-analysis training scripts, dataloader, fusion models, and the MMSA runner. |
 | `README.md` | Public project guide. |
 
-## Environment
+## 🧪 Environment
 
 The code was developed with the following environment:
 
@@ -60,9 +60,9 @@ soundfile              0.11.0
 ```
 
 
-## Data Preparation
+## 📦 Data Preparation
 
-### Action Recognition
+### 🎬 Action Recognition
 
 Download pretrained models and place them under
 `Action recognition/pretrained_models/`:
@@ -73,9 +73,16 @@ Download pretrained models and place them under
 | RGB video | `slowfast_r101_8x8x1_256e_kinetics400_rgb_20210218-0dd54025.pth` from OpenMMLab. |
 | Optical flow | `slowonly_r50_8x8x1_256e_kinetics400_flow_20200704-6b384243.pth` from OpenMMLab. |
 
-EPIC-Kitchens is expected to contain MM-SADA split files and pre-extracted
-clips. The dataloader accepts either the dataset root or the
-`MM-SADA_Domain_Adaptation_Splits` directory as `--datapath`.
+Download the action-recognition datasets here:
+
+| Dataset | Download |
+| --- | --- |
+| EPIC-Kitchens | [Hugging Face](https://huggingface.co/datasets/hdong51/Human-Animal-Cartoon/tree/main) |
+| HAC | [Hugging Face](https://huggingface.co/datasets/hdong51/Human-Animal-Cartoon/tree/main) |
+
+
+<details>
+<summary><strong>EPIC-Kitchens expected layout (click to preview) 🎞️</strong></summary>
 
 ```text
 DATA_ROOT/
@@ -86,20 +93,20 @@ DATA_ROOT/
     D2_test.pkl
     D3_train.pkl
     D3_test.pkl
-    EPIC-mp4/
-      video/train/D1/
-      video/test/D1/
-      flow/train/D1/
-      flow/test/D1/
-      ...
-    rgb/train/D1/*.wav
-    rgb/test/D1/*.wav
+    video/train/D1/
+    video/test/D1/
+    flow/train/D1/
+    flow/test/D1/
+    audio/train/D1/*.wav
+    audio/test/D1/*.wav
     ...
 ```
 
-HAC can be downloaded from
-`https://huggingface.co/datasets/hdong51/Human-Animal-Cartoon/tree/main`.
-Pass the parent directory containing `HAC_Splits` as `--datapath`.
+</details>
+
+
+<details>
+<summary><strong>HAC expected layout (click to preview) 🐶</strong></summary>
 
 ```text
 DATA_ROOT/
@@ -117,7 +124,9 @@ DATA_ROOT/
     cartoon/audio/
 ```
 
-### HUST Motor
+</details>
+
+### ⚙️ HUST Motor
 
 Download the HUST motor dataset from:
 
@@ -125,22 +134,20 @@ Download the HUST motor dataset from:
 https://drive.google.com/drive/folders/1XmahwIQ4o66FC3dpOaeTV-gqz2dd0XBw
 ```
 
-Training scripts read:
+The released HUST files are raw `TXT` signals, so you need to preprocess them
+into `.mat` files before training. Training scripts read:
 
-```text
-HUSTmotor/data/Motor_Vib.mat
-HUSTmotor/data/Motor_Aud.mat
-```
-
-If starting from TXT files, use the preprocessing utility and then place the
-generated `.mat` files under `HUSTmotor/data/`:
+Place the raw TXT files under `HUSTmotor/data/`, then run:
 
 ```bash
 cd HUSTmotor
 python utils/HUST_preprocess.py
 ```
 
-### MMSA
+This script writes `Motor_Vib.mat` and `Motor_Aud.mat` directly into
+`HUSTmotor/data/`.
+
+### 💬 MMSA
 
 Download CMU-MOSI, CMU-MOSEI, and CH-SIMS data from:
 
@@ -159,12 +166,12 @@ data/sims.pkl
 You can also pass a dataset directory or a concrete `.pkl` file path through
 `--datapath`.
 
-## Training Scripts
+## 🚆 Training Scripts
 
 All commands below should be run from the corresponding task folder. Extra
 hyperparameters can be appended to any runner after `--`.
 
-### Action Recognition
+### 🎬 Action Recognition
 
 Folder:
 
@@ -183,6 +190,9 @@ python train_ERM.py \
   --use_video --use_audio \
   --datapath /path/to/DATA_ROOT
 ```
+
+For EPIC, `--datapath` can point to either `DATA_ROOT/` or
+`DATA_ROOT/MM-SADA_Domain_Adaptation_Splits/`.
 
 Available method scripts:
 
@@ -255,7 +265,7 @@ Action recognition/outputs/logs/{EPIC,HAC}/{METHOD}/{single_source_dg,multi_sour
 Action recognition/outputs/models/{EPIC,HAC}/{METHOD}/{single_source_dg,multi_source_dg}/
 ```
 
-### HUST Motor
+### ⚙️ HUST Motor
 
 Folder:
 
@@ -272,7 +282,7 @@ python train_HUST_EMR.py -s D2 D3 D4 -t D1
 Available method scripts:
 
 ```text
-train_HUST_EMR.py        # ERM baseline; filename is kept for compatibility
+train_HUST_EMR.py
 train_HUST_RNA.py
 train_HUST_SimMMDG.py
 train_HUST_MOOSA.py
@@ -318,7 +328,7 @@ HUSTmotor/outputs/logs/{METHOD}/{single_source_dg,multi_source_dg}/
 HUSTmotor/outputs/models/{METHOD}/{single_source_dg,multi_source_dg}/
 ```
 
-### MMSA
+### 💬 MMSA
 
 Folder:
 

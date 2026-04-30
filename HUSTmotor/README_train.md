@@ -13,6 +13,13 @@ data/Motor_Vib.mat
 data/Motor_Aud.mat
 ```
 
+The released HUST dataset comes as raw `TXT` files. Put those TXT files under
+`HUSTmotor/data/`, then convert them to the `.mat` files above with:
+
+```bash
+python utils/HUST_preprocess.py
+```
+
 ## 📌 Methods
 
 ```text

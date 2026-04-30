@@ -16,6 +16,7 @@ Options:
   -s, --setting SETTING      multi, single, or all (default: all)
   -M, --modality MODALITY    va, vf, af, vaf, or all (default: all)
       --datapath PATH        Dataset root passed to the training script
+                             (EPIC: DATA_ROOT or MM-SADA_Domain_Adaptation_Splits)
       --python PYTHON        Python executable (default: python)
       --dry-run              Print commands without running them
   -h, --help                 Show this help
