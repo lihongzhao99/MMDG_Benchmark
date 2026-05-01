@@ -25,11 +25,11 @@
 
 
 
-**MMDG-Bench** is the **first comprehensive and standardized benchmark** for Multimodal Domain Generalization (MMDG), designed to rigorously evaluate whether current methods truly improve cross-domain robustness.
+**MMDG-Bench** is the **first comprehensive and standardized benchmark** for Multimodal Domain Generalization (MMDG).
 
 Unlike prior work that focuses on limited datasets or settings, MMDG-Bench unifies evaluation across **multiple tasks, modalities, and real-world challenges**, including corruption robustness, missing modalities, and model trustworthiness.
 
-> 🔍 **Key insight:** Under fair and standardized evaluation, **most recent MMDG methods fail to significantly outperform strong baselines (e.g., ERM)**, suggesting that progress in this field may be overestimated.
+> 🔍 **Key insight:** Under fair and standardized evaluation, **most recent MMDG methods fail to significantly outperform strong baselines (e.g., ERM)**, suggesting that progress in MMDG may be overestimated.
 
 ### 🌟 What makes MMDG-Bench unique?
 
