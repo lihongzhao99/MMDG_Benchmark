@@ -23,6 +23,37 @@
 
 # 🌍 Multimodal Domain Generalization Benchmark
 
+
+
+**MMDG-Bench** is the **first comprehensive and standardized benchmark** for Multimodal Domain Generalization (MMDG), designed to rigorously evaluate whether current methods truly improve cross-domain robustness.
+
+Unlike prior work that focuses on limited datasets or settings, MMDG-Bench unifies evaluation across **multiple tasks, modalities, and real-world challenges**, including corruption robustness, missing modalities, and model trustworthiness.
+
+> 🔍 **Key insight:** Under fair and standardized evaluation, **most recent MMDG methods fail to significantly outperform strong baselines (e.g., ERM)**, suggesting that progress in this field may be overestimated.
+
+### 🌟 What makes MMDG-Bench unique?
+
+- **📊 First unified MMDG benchmark** across:
+  - 6 datasets, 3 task families
+  - 6 modality combinations
+  - 9 methods + upper bound
+
+- **⚖️ Standardized evaluation protocol**
+  - Same data splits, hyperparameter search, model selection
+  - Enables fair and reproducible comparison
+
+- **🧪 Beyond accuracy: realistic evaluation**
+  - Corruption robustness
+  - Missing-modality generalization
+  - Misclassification detection
+  - OOD detection
+
+- **📉 Key Findings**
+  - No single method consistently dominates across datasets or modality combinations
+  - Trimodal fusion does **not** consistently outperform bimodal setups
+  - A large gap to upper-bound performance remains
+  - Current methods are highly vulnerable to corruptions and missing modalities
+
 This repository contains training code for multimodal domain generalization
 experiments across three tasks:
 
@@ -393,7 +424,6 @@ Outputs are written to:
 ```text
 MMSA/outputs/logs/{METHOD}/{single_source_dg,multi_source_dg}/
 ```
-
 
 ## Related Projects
 * [Survey](https://github.com/donghao51/Awesome-Multimodal-Adaptation): Advances in Multimodal Adaptation and Generalization: From Traditional Approaches to Foundation Models
