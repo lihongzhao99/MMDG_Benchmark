@@ -19,6 +19,20 @@
     <sup>1</sup>ETH Zurich, <sup>2</sup>Zhengzhou University, <sup>3</sup>MBZUAI, <sup>4</sup>EPFL
 </div>
 
+<div>
+    <h4 align="center">
+        • <a href="https://arxiv.org/abs/2605." target='_blank'>arXiv 2026</a> •
+    </h4>
+</div>
+
+
+
+<div style="text-align:center">
+<img src="frame.jpg"  width="100%" height="100%">
+</div>
+
+---
+
 </div>
 
 # 🌍 Multimodal Domain Generalization Benchmark
@@ -64,6 +78,20 @@ experiments across three tasks:
 The implemented methods are ERM, RNA-Net, SimMMDG, MOOSA, CMRF, NEL, JAT,
 MBCD, and GMP. Each task folder also provides a `run_all_cross_domain.sh`
 script that runs a selected method over the benchmark cross-domain settings.
+
+## Citation
+
+If you find our work useful in your research please consider citing our [paper](https://arxiv.org/abs/2605.):
+
+
+```
+@article{dong2026mmdgbench,
+	author   = {Dong, Hao and Li, Hongzhao and Li, Shupan and Khan, Muhammad Haris and Chatzi, Eleni and Fink, Olga},
+	title    = {Are We Making Progress in Multimodal Domain Generalization? A Comprehensive Benchmark Study},
+	journal  = {arXiv preprint arXiv:2605.},
+	year     = {2026},
+}
+```
 
 ## 🗂️ Repository Layout
 
