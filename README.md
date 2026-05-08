@@ -21,7 +21,7 @@
 
 <div>
     <h4 align="center">
-        • <a href="https://arxiv.org/abs/2605." target='_blank'>arXiv 2026</a> •
+        • <a href="https://arxiv.org/abs/2605.06643" target='_blank'>arXiv 2026</a> •
     </h4>
 </div>
 
@@ -81,14 +81,14 @@ script that runs a selected method over the benchmark cross-domain settings.
 
 ## Citation
 
-If you find our work useful in your research please consider citing our [paper](https://arxiv.org/abs/2605.):
+If you find our work useful in your research please consider citing our [paper](https://arxiv.org/abs/2605.06643):
 
 
 ```
 @article{dong2026mmdgbench,
 	author   = {Dong, Hao and Li, Hongzhao and Li, Shupan and Khan, Muhammad Haris and Chatzi, Eleni and Fink, Olga},
 	title    = {Are We Making Progress in Multimodal Domain Generalization? A Comprehensive Benchmark Study},
-	journal  = {arXiv preprint arXiv:2605.},
+	journal  = {arXiv preprint arXiv:2605.06643},
 	year     = {2026},
 }
 ```
