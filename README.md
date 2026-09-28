@@ -11,12 +11,12 @@
     &emsp;
     <a href='https://m-haris-khan.com/' target='_blank'>Muhammad Haris Khan</a><sup>3</sup>
     &emsp;
-    <a href='https://chatzi.ibk.ethz.ch/about-us/people/prof-dr-eleni-chatzi.html' target='_blank'>Eleni Chatzi</a><sup>1</sup>
+    <a href='https://chatzi.ibk.ethz.ch/about-us/people/prof-dr-eleni-chatzi.html' target='_blank'>Eleni Chatzi</a><sup>4</sup>
     &emsp;
-    <a href='https://people.epfl.ch/olga.fink?lang=en' target='_blank'>Olga Fink</a><sup>4</sup>
+    <a href='https://people.epfl.ch/olga.fink?lang=en' target='_blank'>Olga Fink</a><sup>5</sup>
 </div>
 <div>
-    <sup>1</sup>ETH Zurich, <sup>2</sup>Zhengzhou University, <sup>3</sup>MBZUAI, <sup>4</sup>EPFL
+    <sup>1</sup>ELLIS Institute Finland and Tampere University, <sup>2</sup>Zhengzhou University, <sup>3</sup>MBZUAI, <sup>4</sup>ETH Zurich, <sup>5</sup>EPFL
 </div>
 
 <div>
