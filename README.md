@@ -100,6 +100,8 @@ If you find our work useful in your research please consider citing our [paper](
 | `Action recognition/` | Action-recognition training scripts, dataloaders, MMAction2 code, VGGSound audio backbone, pretrained-model directory, and the action runner. |
 | `HUSTmotor/` | HUST motor fault-diagnosis training scripts, 1D signal dataloader, preprocessing utility, models, and the HUST runner. |
 | `MMSA/` | Multimodal sentiment-analysis training scripts, dataloader, fusion models, and the MMSA runner. |
+| `tools/search_hparams.py` | Runs per-task hyperparameter search, model selection, and final three-seed reporting. |
+| `configs/hparam_search/` | One extensible search specification per method. |
 | `README.md` | Public project guide. |
 
 ## 🧪 Environment
@@ -225,233 +227,81 @@ data/sims.pkl
 You can also pass a dataset directory or a concrete `.pkl` file path through
 `--datapath`.
 
-## 🚆 Training Scripts
+## 🚀 Run Hyperparameter Search
 
-All commands below should be run from the corresponding task folder. Extra
-hyperparameters can be appended to any runner after `--`.
+After preparing the data, run commands from the repository root. The recommended
+entry point performs the complete paper protocol automatically for one independent
+task:
 
-### 🎬 Action Recognition
+1. Run the default configuration and 10 random configurations with different seeds.
+2. Select the configuration with the best source-domain validation result.
+3. Rerun it with two new seeds and report the mean and standard deviation of all
+   three target-domain results.
 
-Folder:
+Supported methods are `ERM`, `RNA`, `SimMMDG`, `MOOSA`, `CMRF`, `NEL`, `JAT`,
+`MBCD`, and `GMP`.
+
+### Action recognition
 
 ```bash
-cd "Action recognition"
-```
-
-Single training script format:
-
-```bash
-python train_ERM.py \
-  --dataset epic \
-  --num_class 8 \
-  -s D2 D3 \
-  -t D1 \
-  --use_video --use_audio \
+python tools/search_hparams.py \
+  --task action --method JAT --dataset epic \
+  --source D2 D3 --target D1 --modality va \
   --datapath /path/to/DATA_ROOT
 ```
 
-For EPIC, `--datapath` can point to either `DATA_ROOT/` or
-`DATA_ROOT/MM-SADA_Domain_Adaptation_Splits/`.
+Use `epic` with domains `D1/D2/D3`, or `hac` with
+`human/animal/cartoon`. Available modalities are `va`, `vf`, `af`, and `vaf`.
 
-Available method scripts:
-
-```text
-train_ERM.py
-train_RNA.py
-train_SimMMDG.py
-train_MOOSA.py
-train_CMRF.py
-train_NEL.py
-train_JAT.py
-train_MBCD.py
-train_GMP.py
-```
-
-Dataset and class-count options:
-
-| Dataset | Domains | `--num_class` |
-| --- | --- | --- |
-| `epic` | `D1`, `D2`, `D3` | `8` |
-| `hac` | `human`, `animal`, `cartoon` | `7` |
-
-Supported modality combinations:
-
-| Name | Flags |
-| --- | --- |
-| `va` | `--use_video --use_audio` |
-| `vf` | `--use_video --use_flow` |
-| `af` | `--use_audio --use_flow` |
-| `vaf` | `--use_video --use_audio --use_flow` |
-
-Batch runner:
+### HUST motor fault diagnosis
 
 ```bash
-./run_all_cross_domain.sh --method MBCD --dataset epic --setting all --modality all --datapath /path/to/DATA_ROOT
+python tools/search_hparams.py \
+  --task hust --method NEL \
+  --source D2 D3 D4 --target D1
 ```
 
-Runner options:
+HUST data must be preprocessed under `HUSTmotor/data/` as described above.
 
-```text
---method ERM|RNA|SimMMDG|MOOSA|CMRF|NEL|JAT|MBCD|GMP
---dataset epic|hac|all
---setting multi|single|all
---modality va|vf|af|vaf|all
---datapath /path/to/DATA_ROOT
---dry-run
-```
-
-Examples:
+### Multimodal sentiment analysis
 
 ```bash
-./run_all_cross_domain.sh -m ERM -d epic -s multi -M va --dry-run
-./run_all_cross_domain.sh -m JAT -d hac -s multi -M vaf -- --nepochs 10 --seed 1
-./run_all_cross_domain.sh -m GMP -d all -s all -M all
-```
-
-The action runner enumerates:
-
-| Dataset | Setting | Source -> target domains |
-| --- | --- | --- |
-| EPIC multi-source | `multi` | `D2,D3 -> D1`; `D1,D3 -> D2`; `D1,D2 -> D3` |
-| EPIC single-source | `single` | `D1 -> D2`; `D1 -> D3`; `D2 -> D1`; `D2 -> D3`; `D3 -> D1`; `D3 -> D2` |
-| HAC multi-source | `multi` | `animal,cartoon -> human`; `human,cartoon -> animal`; `human,animal -> cartoon` |
-| HAC single-source | `single` | all six directed pairs among `human`, `animal`, and `cartoon` |
-
-Outputs are written to:
-
-```text
-Action recognition/outputs/logs/{EPIC,HAC}/{METHOD}/{single_source_dg,multi_source_dg}/
-Action recognition/outputs/models/{EPIC,HAC}/{METHOD}/{single_source_dg,multi_source_dg}/
-```
-
-### ⚙️ HUST Motor
-
-Folder:
-
-```bash
-cd HUSTmotor
-```
-
-Single training script format:
-
-```bash
-python train_HUST_EMR.py -s D2 D3 D4 -t D1
-```
-
-Available method scripts:
-
-```text
-train_HUST_EMR.py
-train_HUST_RNA.py
-train_HUST_SimMMDG.py
-train_HUST_MOOSA.py
-train_HUST_CMRF.py
-train_HUST_NEL.py
-train_HUST_JAT.py
-train_HUST_MBCD.py
-train_HUST_GMP.py
-```
-
-Batch runner:
-
-```bash
-./run_all_cross_domain.sh --method GMP --setting all
-```
-
-Runner options:
-
-```text
---method ERM|RNA|SimMMDG|MOOSA|CMRF|NEL|JAT|MBCD|GMP
---setting multi|single|all
---dry-run
-```
-
-Examples:
-
-```bash
-./run_all_cross_domain.sh -m ERM -s multi --dry-run
-./run_all_cross_domain.sh -m MOOSA -s all -- --iteration 2000 --seed 1
-```
-
-The HUST runner enumerates:
-
-| Setting | Source -> target domains |
-| --- | --- |
-| Multi-source | `D2,D3,D4 -> D1`; `D1,D3,D4 -> D2`; `D1,D2,D4 -> D3`; `D1,D2,D3 -> D4` |
-| Single-source | all 12 directed pairs among `D1`, `D2`, `D3`, and `D4` |
-
-Outputs are written to:
-
-```text
-HUSTmotor/outputs/logs/{METHOD}/{single_source_dg,multi_source_dg}/
-HUSTmotor/outputs/models/{METHOD}/{single_source_dg,multi_source_dg}/
-```
-
-### 💬 MMSA
-
-Folder:
-
-```bash
-cd MMSA
-```
-
-Single training script format:
-
-```bash
-python train_MMSA_ERM.py \
-  --source_datasets mosi mosei \
-  --target_dataset sims \
+python tools/search_hparams.py \
+  --task mmsa --method MBCD \
+  --source mosi mosei --target sims \
   --datapath /path/to/mmsa_data
 ```
 
-Available method scripts:
+Replace `--method`, source domains, target domain, dataset, or modality to run a
+different independent task.
+
+### Results and resuming
+
+The selected parameters, all seeds and scores, and the final three-run statistics
+are saved in:
 
 ```text
-train_MMSA_ERM.py
-train_MMSA_RNA.py
-train_MMSA_SimMMDG.py
-train_MMSA_MOOSA.py
-train_MMSA_CMRF.py
-train_MMSA_NEL.py
-train_MMSA_JAT.py
-train_MMSA_MBCD.py
-train_MMSA_GMP.py
+outputs/search/{task}/{dataset-or-task}/{method}/{independent-task}/search_state.json
 ```
 
-Batch runner:
+The final result is under `final.mean`, with both population and sample standard
+deviations under `final.std_population` and `final.std_sample`. Training logs remain
+under each task folder's `outputs/logs/` directory.
 
-```bash
-./run_all_cross_domain.sh --method CMRF --setting all --datapath /path/to/mmsa_data
-```
+Use `--search-seed N` to reproduce the generated parameters and seeds. If a run is
+interrupted, repeat the same command with `--resume`; completed trials are skipped.
+Add `--dry-run` only when you want to inspect the generated commands without
+training.
 
-Runner options:
+### Adding a method
 
-```text
---method ERM|RNA|SimMMDG|MOOSA|CMRF|NEL|JAT|MBCD|GMP
---setting multi|single|all
---datapath /path/to/mmsa_data
---dry-run
-```
+Each method owns one file under `configs/hparam_search/`. Copy an existing file and
+edit its `name`, training `scripts`, and hyperparameter `space`. Optional `aliases`,
+`enable_flags`, and `uses_num_modals` fields describe method-specific CLI behavior.
+The search runner discovers the new method automatically.
 
-Examples:
-
-```bash
-./run_all_cross_domain.sh -m ERM -s multi --dry-run
-./run_all_cross_domain.sh -m MBCD -s all --datapath ../data -- --num_epochs 5 --seed 1
-```
-
-The MMSA runner enumerates the reported benchmark settings:
-
-| Setting | Source -> target datasets |
-| --- | --- |
-| Multi-source | `mosi,mosei -> sims`; `mosi,sims -> mosei` |
-| Single-source | `mosei -> sims`; `mosi -> sims`; `mosi -> mosei`; `sims -> mosi`; `sims -> mosei` |
-
-Outputs are written to:
-
-```text
-MMSA/outputs/logs/{METHOD}/{single_source_dg,multi_source_dg}/
-```
+For direct single-run training or full cross-domain enumeration without parameter
+search, see the short README inside `Action recognition/`, `HUSTmotor/`, or `MMSA/`.
 
 ## Related Projects
 * [Survey](https://github.com/donghao51/Awesome-Multimodal-Adaptation): Advances in Multimodal Adaptation and Generalization: From Traditional Approaches to Foundation Models

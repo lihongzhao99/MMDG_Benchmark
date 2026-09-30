@@ -79,12 +79,15 @@ def build_run_log_path(args, method_name):
     log_dir = os.path.join(method_root, dg_mode)
     os.makedirs(log_dir, exist_ok=True)
 
+    explicit_run_name = str(getattr(args, "run_name", "") or "").strip()
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     source_tag = "-".join(source_domains)
     target_tag = "-".join(target_domains)
     filename = (
-        f"{str(method_name).upper()}_{DATASET_NAME}_"
-        f"{source_tag}_to_{target_tag}_t_a_v_seed{getattr(args, 'seed', '')}_{run_id}.csv"
+        f"{explicit_run_name}.csv"
+        if explicit_run_name
+        else f"{str(method_name).upper()}_{DATASET_NAME}_"
+             f"{source_tag}_to_{target_tag}_t_a_v_seed{getattr(args, 'seed', '')}_{run_id}.csv"
     )
     return os.path.join(log_dir, filename), dg_mode, source_domains, target_domains
 

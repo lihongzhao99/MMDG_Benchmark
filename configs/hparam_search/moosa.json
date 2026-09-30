@@ -1,0 +1,13 @@
+{
+  "name": "MOOSA",
+  "scripts": {
+    "action": "train_MOOSA.py",
+    "hust": "train_HUST_MOOSA.py",
+    "mmsa": "train_MMSA_MOOSA.py"
+  },
+  "space": {
+    "entropy_min_weight": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.001, "digits": null},
+    "jigsaw_ratio": {"type": "uniform", "low": 0.0, "high": 3.0, "default": 1.0, "digits": 1},
+    "mask_ratio": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.3, "digits": 1}
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "MBCD",
+  "scripts": {
+    "action": "train_MBCD.py",
+    "hust": "train_HUST_MBCD.py",
+    "mmsa": "train_MMSA_MBCD.py"
+  },
+  "space": {
+    "ema_beta": {"type": "uniform", "low": 0.9, "high": 1.0, "default": 0.999, "digits": null},
+    "kl_mm_coeff": {"type": "uniform", "low": 0.0, "high": 2.0, "default": 1.0, "digits": 1},
+    "kl_um_coeff": {"type": "uniform", "low": 0.0, "high": 2.0, "default": 1.0, "digits": 1},
+    "modality_drop_base": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.0, "digits": 1}
+  }
+}

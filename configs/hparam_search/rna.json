@@ -1,0 +1,11 @@
+{
+  "name": "RNA",
+  "scripts": {
+    "action": "train_RNA.py",
+    "hust": "train_HUST_RNA.py",
+    "mmsa": "train_MMSA_RNA.py"
+  },
+  "space": {
+    "alpha_RNA": {"type": "uniform", "low": 0.0, "high": 3.0, "default": 1.0, "digits": 1}
+  }
+}

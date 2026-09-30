@@ -106,18 +106,19 @@ parser.add_argument(
 )
 parser.add_argument("--name", type=str, default="")
 parser.add_argument("--random_hparams_json", type=str, default="")
+parser.add_argument("--run_name", type=str, default="", help="stable run id used by automation")
 
 # ===== GMP related arguments =====
 parser.add_argument("--project_out_dim", type=int, default=128)
 parser.add_argument("--global_discriminator_hidden_dim", type=int, default=128)
 parser.add_argument("--alpha_rev2", type=float, default=0.3)
-parser.add_argument("--domain_adv_loss_local", type=float, default=0.2)
-parser.add_argument("--cls_loss", type=float, default=0.2)
+parser.add_argument("--domain_adv_loss_local", type=float, default=0.5)
+parser.add_argument("--cls_loss", type=float, default=3.0)
 
 # ===== GMP gradient strategy =====
-parser.add_argument("--enable_gmp", action="store_true", help="enable GMP gradient modulation/projection")
+parser.add_argument("--enable_gmp", action="store_true", default=True, help="enable GMP gradient modulation/projection")
 parser.add_argument("--alpha_k", type=float, default=0.5, help="semantic branch suppression strength")
-parser.add_argument("--alpha_p", type=float, default=0.5, help="domain branch suppression strength")
+parser.add_argument("--alpha_p", type=float, default=0.1, help="domain branch suppression strength")
 
 args = parser.parse_args()
 

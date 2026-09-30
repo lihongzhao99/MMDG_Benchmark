@@ -106,18 +106,19 @@ parser.add_argument(
 )
 parser.add_argument("--name", type=str, default="")
 parser.add_argument("--random_hparams_json", type=str, default="")
+parser.add_argument("--run_name", type=str, default="", help="stable run id used by automation")
 
 # ===== MDJA related arguments =====
-parser.add_argument("--enable_mdja", action="store_true", help="enable MDJA strategy")
+parser.add_argument("--enable_mdja", action="store_true", default=True, help="enable MDJA strategy")
 parser.add_argument("--project_out_dim", type=int, default=128)
 parser.add_argument("--global_discriminator_hidden_dim", type=int, default=128)
 parser.add_argument("--alpha_rev", type=float, default=0.1)
 parser.add_argument("--alpha_rev2", type=float, default=0.3)
 parser.add_argument("--entropy_temp", type=float, default=1.0)
-parser.add_argument("--domain_adv_loss_global", type=float, default=0.2)
-parser.add_argument("--domain_adv_loss_local", type=float, default=0.2)
-parser.add_argument("--modal_adv_loss", type=float, default=0.05)
-parser.add_argument("--cls_loss", type=float, default=0.2)
+parser.add_argument("--domain_adv_loss_global", type=float, default=0.5)
+parser.add_argument("--domain_adv_loss_local", type=float, default=0.5)
+parser.add_argument("--modal_adv_loss", type=float, default=0.1)
+parser.add_argument("--cls_loss", type=float, default=3.0)
 
 args = parser.parse_args()
 

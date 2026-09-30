@@ -890,6 +890,7 @@ if __name__ == '__main__':
 
     parser.add_argument("--SMA", action='store_true')
     parser.add_argument("--sma_start_step", type=int, default=400)
+    parser.set_defaults(CM_mixup=True, contrast=True, distill=True, SMA=True)
 
     args = parser.parse_args()
 

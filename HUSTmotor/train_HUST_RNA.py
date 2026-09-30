@@ -250,6 +250,7 @@ if __name__ == "__main__":
     parser.add_argument("--log_interval", type=int, default=10)
     parser.add_argument("--l2_decay", type=float, default=5e-4)
     parser.add_argument("--val_per_class", type=int, default=200)
+    parser.add_argument("--split_seed", type=int, default=8, help="fixed source train/validation split seed")
     parser.add_argument("--alpha_RNA", type=float, default=1.0)
     parser.add_argument("-s", "--source_domain", nargs="+", default=["D1"],
                         help="Source domain(s), e.g. -s D1 D2 D3 or -s 1 2 3")
@@ -297,7 +298,7 @@ if __name__ == "__main__":
         batch_size=batch_size,
         kwargs=kwargs,
         val_per_class=args.val_per_class,
-        seed=seed,
+        seed=args.split_seed,
     )
     target_loaders = {}
     for domain in targetlist.tolist():

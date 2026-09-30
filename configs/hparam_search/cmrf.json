@@ -1,0 +1,12 @@
+{
+  "name": "CMRF",
+  "scripts": {
+    "action": "train_CMRF.py",
+    "hust": "train_HUST_CMRF.py",
+    "mmsa": "train_MMSA_CMRF.py"
+  },
+  "space": {
+    "distill_coef": {"type": "uniform", "low": 0.0, "high": 5.0, "default": 3.0, "digits": 1},
+    "mix_coef": {"type": "uniform", "low": 0.0, "high": 5.0, "default": 2.0, "digits": 1}
+  }
+}

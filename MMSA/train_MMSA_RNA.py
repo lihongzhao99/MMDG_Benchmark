@@ -112,6 +112,7 @@ parser.add_argument(
 )
 parser.add_argument("--name", type=str, default="")
 parser.add_argument("--random_hparams_json", type=str, default="")
+parser.add_argument("--run_name", type=str, default="", help="stable run id used by automation")
 
 
 parser.add_argument(

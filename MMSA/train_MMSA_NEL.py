@@ -106,9 +106,10 @@ parser.add_argument(
 )
 parser.add_argument("--name", type=str, default="")
 parser.add_argument("--random_hparams_json", type=str, default="")
+parser.add_argument("--run_name", type=str, default="", help="stable run id used by automation")
 
 # ===== NEL related arguments =====
-parser.add_argument("--enable_nel", action="store_true", help="enable NEL regularization")
+parser.add_argument("--enable_nel", action="store_true", default=True, help="enable NEL regularization")
 parser.add_argument("--nel_loss_weight", type=float, default=0.2, help="global weight for NEL auxiliary loss")
 parser.add_argument("--alpha", type=float, default=0.7, help="weight for L_UNC, (1-alpha) for L_C")
 parser.add_argument("--beta", type=float, default=None, help="weight for L_NEE, default 1/batch_size")

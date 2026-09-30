@@ -1,0 +1,16 @@
+{
+  "name": "NEL",
+  "scripts": {
+    "action": "train_NEL.py",
+    "hust": "train_HUST_NEL.py",
+    "mmsa": "train_MMSA_NEL.py"
+  },
+  "enable_flags": {"mmsa": ["--enable_nel"]},
+  "space": {
+    "alpha": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.7, "digits": 1},
+    "beta": {"type": "uniform", "low": 0.0, "high": 1.0, "default": "1/batch_size", "digits": null},
+    "temp_s": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.1, "digits": 1},
+    "temp_u": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.25, "digits": 1},
+    "k": {"type": "choice", "values": [4, 8, 12, 16], "default": 8}
+  }
+}

@@ -572,7 +572,7 @@ if __name__ == '__main__':
     parser.add_argument("--alpha_rev2", type=float, default=0.3)
     parser.add_argument("--alpha_k", type=float, default=0.5,
                         help='suppress dominant semantic modality')
-    parser.add_argument("--alpha_p", type=float, default=0.5,
+    parser.add_argument("--alpha_p", type=float, default=0.1,
                         help='suppress dominant domain-generalized modality')
     parser.add_argument("--val_noise", type=float, default=0)
 

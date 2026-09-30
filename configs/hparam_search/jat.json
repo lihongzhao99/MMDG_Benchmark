@@ -1,0 +1,28 @@
+{
+  "name": "JAT",
+  "scripts": {
+    "action": "train_JAT.py",
+    "hust": "train_HUST_JAT.py",
+    "mmsa": "train_MMSA_JAT.py"
+  },
+  "uses_num_modals": true,
+  "enable_flags": {"mmsa": ["--enable_mdja"]},
+  "aliases": {
+    "action": {"domain_adv_loss": ["domain_adv_loss_global", "domain_adv_loss_local"]},
+    "hust": {
+      "alpha_rev": ["alpha_rev_modal"],
+      "alpha_rev2": ["alpha_rev_domain"],
+      "domain_adv_loss": ["lambda_domain_global", "lambda_domain_local"],
+      "modal_adv_loss": ["lambda_modal"],
+      "cls_loss": ["lambda_cls"]
+    },
+    "mmsa": {"domain_adv_loss": ["domain_adv_loss_global", "domain_adv_loss_local"]}
+  },
+  "space": {
+    "alpha_rev": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.1, "digits": 1},
+    "alpha_rev2": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.3, "digits": 1},
+    "domain_adv_loss": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.5, "digits": 1},
+    "modal_adv_loss": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.1, "digits": 1},
+    "cls_loss": {"type": "uniform", "low": 0.0, "high": 5.0, "default": 3.0, "digits": 1}
+  }
+}

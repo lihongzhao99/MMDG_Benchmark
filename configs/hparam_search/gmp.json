@@ -1,0 +1,21 @@
+{
+  "name": "GMP",
+  "scripts": {
+    "action": "train_GMP.py",
+    "hust": "train_HUST_GMP.py",
+    "mmsa": "train_MMSA_GMP.py"
+  },
+  "uses_num_modals": true,
+  "enable_flags": {"mmsa": ["--enable_gmp"]},
+  "aliases": {
+    "action": {"alpha_rev": ["alpha_rev2"]},
+    "hust": {"alpha_rev": ["alpha_rev2"], "cls_loss": ["lambda_cls_local"]},
+    "mmsa": {"alpha_rev": ["alpha_rev2"]}
+  },
+  "space": {
+    "alpha_rev": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.3, "digits": 1},
+    "alpha_k": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.5, "digits": 1},
+    "alpha_p": {"type": "uniform", "low": 0.0, "high": 1.0, "default": 0.1, "digits": 1},
+    "cls_loss": {"type": "uniform", "low": 0.0, "high": 5.0, "default": 3.0, "digits": 1}
+  }
+}

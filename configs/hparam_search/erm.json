@@ -1,0 +1,9 @@
+{
+  "name": "ERM",
+  "scripts": {
+    "action": "train_ERM.py",
+    "hust": "train_HUST_EMR.py",
+    "mmsa": "train_MMSA_ERM.py"
+  },
+  "space": {}
+}

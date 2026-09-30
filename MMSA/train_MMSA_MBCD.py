@@ -112,6 +112,7 @@ parser.add_argument(
 )
 parser.add_argument("--name", type=str, default="")
 parser.add_argument("--random_hparams_json", type=str, default="")
+parser.add_argument("--run_name", type=str, default="", help="stable run id used by automation")
 
 # ===== MBCD related arguments =====
 parser.add_argument("--enable_mbcd", default=True, action="store_true", help="enable MBCD strategy")
@@ -130,8 +131,8 @@ parser.add_argument(
 )
 parser.add_argument("--modality_drop_base", type=float, default=0.0)
 parser.add_argument("--ema_beta", type=float, default=0.999)
-parser.add_argument("--kl_mm_coeff", type=float, default=0.1)
-parser.add_argument("--kl_um_coeff", type=float, default=0.05)
+parser.add_argument("--kl_mm_coeff", type=float, default=1.0)
+parser.add_argument("--kl_um_coeff", type=float, default=1.0)
 
 args = parser.parse_args()
 
