@@ -227,11 +227,11 @@ data/sims.pkl
 You can also pass a dataset directory or a concrete `.pkl` file path through
 `--datapath`.
 
-## 🚀 Run Hyperparameter Search
+## 🚀 Run Methods
 
-After preparing the data, run commands from the repository root. The recommended
-entry point performs the complete paper protocol automatically for one independent
-task:
+After preparing the data, run any method from the repository root with the unified
+runner. Each command evaluates one independent source-target-modality task and
+automatically applies the paper's hyperparameter-selection protocol:
 
 1. Run the default configuration and 10 random configurations with different seeds.
 2. Select the configuration with the best source-domain validation result.
